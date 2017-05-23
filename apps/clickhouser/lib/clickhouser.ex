@@ -3,16 +3,11 @@ defmodule Clickhouser do
   Documentation for Clickhouser.
   """
 
-  @doc """
-  Hello world.
+  def select(sql) do
+    %Clickhouser.Query.Select{sql: sql}
+  end
 
-  ## Examples
-
-      iex> Clickhouser.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def insert(table, fields, values) do
+    %Clickhouser.Query.Insert{table: table, fields: fields, values: values}
   end
 end

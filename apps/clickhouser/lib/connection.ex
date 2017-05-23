@@ -43,7 +43,7 @@ defmodule Clickhouser.Connection do
       end
 
       def ping do
-        Clickhouser.Query.select("SELECT 1 AS ping")
+        Clickhouser.select("SELECT 1 AS ping")
         |> execute
         |> parse_data
       end

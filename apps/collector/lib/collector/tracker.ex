@@ -1,5 +1,5 @@
 defmodule Collector.Tracker do
-  alias Clickhouser.Query
+  import Clickhouser, only: [insert: 3]
 
   def click(%Collector.Event.Click{customuserid: custom_user_id, userid: user_id, xpath: xpath, href: href, useragent: ua, referer: ref, sessionid: session_id, x: x, y: y}) do
     event_type = 1
@@ -15,7 +15,7 @@ defmodule Collector.Tracker do
       [date, datetime, event_id, event_type, user_id, custom_user_id, site_id, xp, href, ua, ref, session_id, x, y]
     end)
 
-    Query.insert(
+    insert(
       "events",
       ["EventDate", "EventTime", "EventID", "EventType", "UserID", "CustomUserID", "SiteID", "Xpath", "Href", "UserAgent", "Referer", "SessionID", "X", "Y"],
       inserts
@@ -31,7 +31,7 @@ defmodule Collector.Tracker do
     date = Timex.to_date(current) |> Date.to_string
     datetime = Timex.format!(current, "{YYYY}-{0M}-{0D} {h24}:{m}:{s}")
 
-    Query.insert(
+    insert(
       "events",
       ["EventDate", "EventTime", "EventID", "EventType", "UserID", "CustomUserID", "SiteID", "Xpath", "Href", "UserAgent", "Referer", "SessionID", "X", "Y"],
       [[date, datetime, event_id, event_type, user_id, custom_user_id, site_id, "", href, ua, ref, session_id, 0, 0]]

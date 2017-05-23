@@ -1,9 +1,8 @@
 defmodule Collector.Reporter do
-  alias Clickhouser.Query
+  import Clickhouser, only: [select: 1]
 
   def used_pages do
-    Query
-    .select("SELECT Href as href, count() as total FROM events WHERE EventType = 2 GROUP BY Href ORDER BY total DESC")
+    select("SELECT Href as href, count() as total FROM events WHERE EventType = 2 GROUP BY Href ORDER BY total DESC")
     |> Collector.ClickHouse.execute
     |> Collector.ClickHouse.parse_data
   end
@@ -29,7 +28,7 @@ defmodule Collector.Reporter do
     |> Enum.map(&build_join/1)
     |> Enum.join(" ANY INNER JOIN ")
     |> build_select_query
-    |> Query.select
+    |> select
     |> Collector.ClickHouse.execute
     |> Collector.ClickHouse.parse_data
   end
