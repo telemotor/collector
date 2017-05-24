@@ -22,7 +22,10 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :collector, Collector.ClickHouse,
+#config :collector, Collector.ClickHouse,
+#  url: "http://localhost:8123"
+
+config :clickhouser, Clickhouser.Connection,
   url: "http://localhost:8123"
 
 # Import environment specific config. This must remain at the bottom

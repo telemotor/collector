@@ -3,8 +3,8 @@ defmodule Collector.Reporter do
 
   def used_pages do
     select("SELECT Href as href, count() as total FROM events WHERE EventType = 2 GROUP BY Href ORDER BY total DESC")
-    |> Collector.ClickHouse.execute
-    |> Collector.ClickHouse.parse_data
+    |> Clickhouser.Connection.execute
+    |> Clickhouser.Connection.parse_data
   end
 
   def event_report(data) do
@@ -29,8 +29,8 @@ defmodule Collector.Reporter do
     |> Enum.join(" ANY INNER JOIN ")
     |> build_select_query
     |> select
-    |> Collector.ClickHouse.execute
-    |> Collector.ClickHouse.parse_data
+    |> Clickhouser.Connection.execute
+    |> Clickhouser.Connection.parse_data
   end
 
   def build_join(%{"href" => href, "xpath" => xpath} = _data) do

@@ -8,6 +8,6 @@ defmodule Clickhouser do
   end
 
   def insert(table, fields, values) do
-    %Clickhouser.Query.Insert{table: table, fields: fields, values: values}
+    Clickhouser.InsertQueue.insert(%Clickhouser.Query.Insert{table: table, fields: fields, values: values})
   end
 end

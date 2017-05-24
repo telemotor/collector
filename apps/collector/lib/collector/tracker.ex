@@ -9,18 +9,11 @@ defmodule Collector.Tracker do
     date = Timex.to_date(current) |> Date.to_string
     datetime = Timex.format!(current, "{YYYY}-{0M}-{0D} {h24}:{m}:{s}")
 
-#    inserts = magik_xpath(xpath)
-    inserts = [xpath]
-    |> Enum.map(fn(xp) ->
-      [date, datetime, event_id, event_type, user_id, custom_user_id, site_id, xp, href, ua, ref, session_id, x, y]
-    end)
-
     insert(
       "events",
       ["EventDate", "EventTime", "EventID", "EventType", "UserID", "CustomUserID", "SiteID", "Xpath", "Href", "UserAgent", "Referer", "SessionID", "X", "Y"],
-      inserts
+      [[date, datetime, event_id, event_type, user_id, custom_user_id, site_id, xpath, href, ua, ref, session_id, x, y]]
     )
-    |> Collector.ClickHouse.execute
   end
 
   def pageview(%Collector.Event.PageView{customuserid: custom_user_id, userid: user_id, href: href, sessionid: session_id, useragent: ua, referer: ref}) do
@@ -36,7 +29,6 @@ defmodule Collector.Tracker do
       ["EventDate", "EventTime", "EventID", "EventType", "UserID", "CustomUserID", "SiteID", "Xpath", "Href", "UserAgent", "Referer", "SessionID", "X", "Y"],
       [[date, datetime, event_id, event_type, user_id, custom_user_id, site_id, "", href, ua, ref, session_id, 0, 0]]
     )
-    |> Collector.ClickHouse.execute
   end
 
 #  defp magik_xpath(xpath) do

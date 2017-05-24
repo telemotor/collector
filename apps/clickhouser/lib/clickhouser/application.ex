@@ -1,7 +1,6 @@
 defmodule Clickhouser.Application do
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
-  @moduledoc false
 
   use Application
 
@@ -10,8 +9,8 @@ defmodule Clickhouser.Application do
 
     # Define workers and child supervisors to be supervised
     children = [
-      # Starts a worker by calling: Clickhouser.Worker.start_link(arg1, arg2, arg3)
-      # worker(Clickhouser.Worker, [arg1, arg2, arg3]),
+       worker(Clickhouser.InsertQueue, []),
+       worker(Clickhouser.InsertWorker, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
