@@ -26,11 +26,15 @@ defmodule Clickhouser.InsertWorker do
     {md5([table] ++ fields), table, fields, values}
   end
 
+  def group_inserts(input) do
+    group_inserts(input, %{})
+  end
+
   def group_inserts([], output) do
     output
   end
 
-  def group_inserts(input, output \\ %{}) do
+  def group_inserts(input, output) do
     [{hash, table, fields, values}|tail] = input
     result = case Map.has_key?(output, hash) do
       true -> output
