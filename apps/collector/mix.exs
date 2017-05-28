@@ -45,7 +45,7 @@ defmodule Collector.Mixfile do
      {:clickhouser, in_umbrella: true},
      {:httpoison, "~> 0.11.2"},
      {:uuid, "~> 1.1"},
-     {:cors_plug, "~> 1.2"},
+     {:cors_plug, "~> 1.3"},
      {:timex, "~> 3.0"}]
   end
 
